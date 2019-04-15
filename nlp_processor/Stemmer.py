@@ -3,23 +3,29 @@
     Authors: Dexter Shrestha
     Credits: Pravesh Koirala (Stemmer for Nepali Language-NASCOIT) 
 '''
+import os
+
+# relative paths
+suf_i = os.path.join(os.path.dirname(__file__), 'utils/suffixI.txt')
+suf_ii = os.path.join(os.path.dirname(__file__), 'utils/suffixII.txt')
+exception_i = os.path.join(os.path.dirname(__file__), 'utils/exceptionI.txt')
 
 class Stemmer():
 
 	def __init__(self):
 		#get suffix I
-		with open('./utils/suffixI.txt','r',encoding='utf-8') as f:
+		with open(suf_i,'r',encoding='utf-8') as f:
 			suffixI = f.read()
 		self.suffixI = suffixI.strip().split('\n')
 
 		#get suffix II
-		with open('./utils/suffixII.txt','r',encoding='utf-8') as f:
+		with open(suf_ii,'r',encoding='utf-8') as f:
 			suffixII = f.read()
 		self.suffixII = suffixII.strip().split('\n')
 		self.suffixII = [x.strip() for x in self.suffixII]
 
 		#get exception I
-		with open('./utils/execptionI.txt','r',encoding='utf-8') as f:
+		with open(exception_i,'r',encoding='utf-8') as f:
 			execptionI = f.read()
 		self.exceptionI = execptionI.strip().split('\n')
 		
