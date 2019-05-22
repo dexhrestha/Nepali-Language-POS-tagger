@@ -1,4 +1,4 @@
-**Nepali Sentiment Analysis Preprocessing Notebooks**  
+**Nepali Language Sentiment Classification**  
 
   Dataset used: National Nepali Corpus
 
