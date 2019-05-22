@@ -53,3 +53,14 @@ def  data_generator(sentences,sentence_tags,batch_size=3200):
             # print(shape)
             yield(batch_sentences,batch_sentence_tags)
 
+
+def logits_to_sentence(sequences, index):
+    token_sequences = []
+    for categorical_sequence in sequences:
+        token_sequence = []
+        for categorical in categorical_sequence:
+#             try:
+            token_sequence.append(index[categorical])
+
+        token_sequences.append(token_sequence)
+    return token_sequences[0]
