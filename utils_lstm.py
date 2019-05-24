@@ -5,6 +5,8 @@ import pickle
 from keras.utils import to_categorical
 
 def csv_to_corpus(filename):
+    sentences = []
+    sentence_tags = []
     try:
         df = pd.read_csv(filename)
     except Exception as e:
@@ -21,7 +23,17 @@ def csv_to_corpus(filename):
             else:
                 corpus.append(sentence)
                 sentence = []
-        return corpus
+
+        for sentence in corpus:
+            x=[]
+            y=[]
+            for word in sentence:
+                x.append(word[1])
+                y.append(word[0])
+            if len(x) > 0 and len(x)<200:
+                sentences.append(x)
+                sentence_tags.append(y)
+        return sentences,sentence_tags
     return None
             
 def map_tag2index(sentence_tags,output_file):

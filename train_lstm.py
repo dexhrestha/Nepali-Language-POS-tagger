@@ -36,11 +36,12 @@ class POSLSTM:
         self.nepw2v = w2v.Word2Vec.load(args.__getattribute__('w2v'))
         self.tokenizer_file = args.__getattribute__('tokenizer')
         self.tokenizer = Tokenizer(lower=False, oov_token='-OOV-')
+        self.sentences = []
+        self.sentence_tags = []
         self.embedding_matrix = []
         self.model = Sequential()
         self.tag2index= {}
-        self.sentences = []
-        self.sentence_tags = []
+       
         self.labels = []
         self.vocab_size = 0
         self.max_length = 0
@@ -69,20 +70,12 @@ class POSLSTM:
                 self.embedding_matrix[i] = embedding_vector
 
     def process_corpus(self):
-        corpus = csv_to_corpus(self.filename)
-        for sentence in corpus:
-            x=[]
-            y=[]
-            for word in sentence:
-                x.append(word[1])
-                y.append(word[0])
-            if len(x) > 0 and len(x)<200:
-                self.sentences.append(x)
-                self.sentence_tags.append(y)
-        self.tag2index = map_tag2index(self.sentence_tags,args.__getattribute__('labels'))
-        self.sentence_tags = convert_tag2index(self.tag2index,self.sentence_tags)
-        self.create_tokenizer()
-        self.create_embedding_matrix()
+
+        self.sentences,self.sentence_tags = csv_to_corpus(self.filename)
+        # self.tag2index = map_tag2index(self.sentence_tags,args.__getattribute__('labels'))
+        # self.sentence_tags = convert_tag2index(self.tag2index,self.sentence_tags)
+        # self.create_tokenizer()
+        # self.create_embedding_matrix()
     
     def build_model(self):
             
@@ -112,9 +105,10 @@ class POSLSTM:
 if __name__ == "__main__":
     lstm  = POSLSTM()
     lstm.process_corpus()
-    lstm.build_model()
-    # print(len(lstm.sentences))
-    # lstm.test()
-    lstm.train_test()
+    print(len(lstm.sentence_tags))
+    # lstm.build_model()
+    # # print(len(lstm.sentences))
+    # # lstm.test()
+    # lstm.train_test()
     
     
