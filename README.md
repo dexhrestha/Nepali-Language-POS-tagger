@@ -1,4 +1,4 @@
-**Nepali Language Sentiment Classification**  
+**Nepali Language POS tagger**  
 
   Dataset used: National Nepali Corpus
 
